@@ -51,7 +51,7 @@ comment_schema = CommentSchema()
 login_schema = LoginSchema()
 search_schema = SearchSchema()
 users_get_schema = GetUsersSchema()
-users__post_schema = UpdateUsersSchema()
+users_post_schema = UpdateUsersSchema()
 
 
 @app.route('/user', methods=['POST'])
@@ -134,7 +134,7 @@ def users(organization):
         # Assuming you have some schema like user_schema for POST request validation
 
         try:
-            validated_data = users__post_schema.load(data)  # Validate and deserialize input
+            validated_data = users_post_schema.load(data)  # Validate and deserialize input
         except ValidationError as err:
             return jsonify(err.messages), 400  # Return validation errors
 
@@ -152,6 +152,11 @@ def search():
 
     # Process search with validated_data
     return jsonify({"message": "Search results", "data": validated_data}), 200
+
+
+@app.route('/test', methods=['POST', 'GET', 'PUT', 'DELETE'])
+def base():
+    return jsonify({"message": "test"})
 
 
 if __name__ == '__main__':
